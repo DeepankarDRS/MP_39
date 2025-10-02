@@ -1,2 +1,2 @@
-Weekly
-report
+Everyday code upload
+

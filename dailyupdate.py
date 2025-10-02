@@ -15,3 +15,13 @@ SECRET_KEY = "demo-secret-key-change-me"
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 60
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+app = FastAPI(title="FastAPI Daily Series (35 endpoints)")
+
+
+app.add_middleware(
+CORSMiddleware,
+allow_origins=["*"],
+allow_credentials=True,
+allow_methods=["*"],
+allow_headers=["*"],
+)

@@ -25,3 +25,51 @@ allow_credentials=True,
 allow_methods=["*"],
 allow_headers=["*"],
 )
+week1 = APIRouter(prefix="/week1", tags=["week1 - basics"])
+
+
+class Item(BaseModel):
+id: Optional[int] = None
+name: str
+price: float
+description: Optional[str] = None
+
+
+@week1.get("/day01_hello")
+async def hello_world():
+return {"message": "Hello, FastAPI demo!"}
+
+
+@week1.get("/day02_path/{item_id}")
+async def get_item_path(item_id: int = Path(...)):
+return {"item_id": item_id}
+
+
+@week1.get("/day03_query")
+async def search(query: Optional[str] = Query(None), limit: int = 10):
+return {"query": query, "limit": limit}
+
+
+@week1.post("/day04_body", status_code=201)
+async def create_item(item: Item):
+item.id = 1
+return item
+
+
+@week1.post("/day05_response_model", response_model=Item)
+async def create_item_response(item: Item):
+item.id = 2
+return item
+
+
+@week1.get("/day06_status")
+async def custom_status():
+return JSONResponse(status_code=status.HTTP_202_ACCEPTED, content={"detail": "Accepted for processing"})
+
+
+@week1.get("/day07_structure")
+async def project_structure():
+return {"note": "Use routers, models, and db modules for structure."}
+
+
+app.include_router(week1)
